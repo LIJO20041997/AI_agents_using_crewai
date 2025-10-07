@@ -1,0 +1,11 @@
+flask
+google-generativeai
+python-dotenv
+werkzeug
+crewai
+langchain-google-genai
+crewai-tools
+tavily-python
+markdown
+reportlab
+pydantic
