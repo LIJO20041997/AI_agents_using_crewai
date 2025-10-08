@@ -1,7 +1,4 @@
 from flask import Blueprint, request, jsonify, render_template
-import os
-import json
-from werkzeug.utils import secure_filename
 
 api = Blueprint('api', __name__)
 
@@ -16,7 +13,7 @@ def health_check():
 @api.route('/research', methods=['POST'])
 def research_topic():
     try:
-        print("📥 Received research request")
+        print("Received research request")
         
         data = request.get_json()
         if not data or 'topic' not in data:
@@ -25,14 +22,14 @@ def research_topic():
         topic = data['topic']
         format_type = data.get('format', 'markdown')
         
-        print(f"🔍 Topic: {topic}, Format: {format_type}")
+        print(f"Topic: {topic}, Format: {format_type}")
         
         # Process research with CrewAI
         from crew.crew_manager import ResearchCrewManager
         crew_manager = ResearchCrewManager()
         result = crew_manager.research_topic(topic, format_type)
         
-        print(f"✅ Research complete: {result.get('status')}")
+        print(f"Research complete: {result.get('status')}")
         
         return jsonify({
             "status": "success",
@@ -42,7 +39,7 @@ def research_topic():
         })
     
     except Exception as e:
-        print(f"💥 Error in research: {str(e)}")
+        print(f" Error in research: {str(e)}")
         import traceback
         traceback.print_exc()
         return jsonify({"error": str(e)}), 500

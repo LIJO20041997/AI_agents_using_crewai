@@ -2,8 +2,6 @@ from crewai import Crew
 from crew.agents import create_research_agent, create_summarizer_agent, create_report_generator_agent
 from crew.tasks import create_research_task, create_summarization_task, create_report_task
 from datetime import datetime
-import json
-import markdown
 import os
 
 class ResearchCrewManager:
@@ -13,7 +11,7 @@ class ResearchCrewManager:
         self.report_agent = create_report_generator_agent()
     
     def research_topic(self, topic: str, format_type: str = "markdown"):
-        print(f"🚀 Starting AI Research Assistant for: {topic}")
+        print(f"Starting AI Research Assistant for: {topic}")
         
         try:
             # Step 1: Research
@@ -24,7 +22,7 @@ class ResearchCrewManager:
                 verbose=True
             )
             
-            print("🔍 Running research phase...")
+            print("Running research phase...")
             research_result = research_crew.kickoff()
             research_data = str(research_result)
             
@@ -48,14 +46,14 @@ class ResearchCrewManager:
                 verbose=True
             )
             
-            print("📝 Running report generation phase...")
+            print("Running report generation phase...")
             report_result = report_crew.kickoff()
             report_content = str(report_result)
             
             # Save report
             filename = self._save_report(report_content, topic, format_type)
             
-            print("✨ Research completed successfully!")
+            print("Research completed successfully!")
             
             return {
                 'research_data': research_data[:1000] + "..." if len(research_data) > 1000 else research_data,
@@ -69,7 +67,7 @@ class ResearchCrewManager:
             }
             
         except Exception as e:
-            print(f"💥 Error in research process: {str(e)}")
+            print(f"Error in research process: {str(e)}")
             return self._error_response(str(e))
     
     def _save_report(self, content: str, topic: str, format_type: str):
