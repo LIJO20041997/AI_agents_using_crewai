@@ -28,4 +28,4 @@ class LinkedInPostCrew:
         
         # Execute the crew
         result = crew.kickoff()
-        return result
+        return str(result.raw) if hasattr(result, 'raw') else str(result)
